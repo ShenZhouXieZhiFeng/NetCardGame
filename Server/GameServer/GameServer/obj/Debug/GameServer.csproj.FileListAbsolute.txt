@@ -1,0 +1,1 @@
+G:\Work\Project\Github\NetCardGame\Server\GameServer\GameServer\bin\Debug\GameServer.exe.config
