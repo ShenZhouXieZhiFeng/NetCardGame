@@ -1,0 +1,8 @@
+G:\Work\Project\Github\NetCardGame\Server\SocketDemo\SocketDemo\SocketDemo\bin\Debug\SocketDemo.exe.config
+G:\Work\Project\Github\NetCardGame\Server\SocketDemo\SocketDemo\bin\Debug\SocketDemo.exe.config
+G:\Work\Project\Github\NetCardGame\Demo\SocketDemo\SocketDemo\bin\Debug\SocketDemo.exe.config
+G:\Work\Project\Github\NetCardGame\Demo\SocketDemo\SocketDemo\bin\Debug\SocketDemo.exe
+G:\Work\Project\Github\NetCardGame\Demo\SocketDemo\SocketDemo\bin\Debug\SocketDemo.pdb
+G:\Work\Project\Github\NetCardGame\Demo\SocketDemo\SocketDemo\obj\Debug\SocketDemo.csprojResolveAssemblyReference.cache
+G:\Work\Project\Github\NetCardGame\Demo\SocketDemo\SocketDemo\obj\Debug\SocketDemo.exe
+G:\Work\Project\Github\NetCardGame\Demo\SocketDemo\SocketDemo\obj\Debug\SocketDemo.pdb

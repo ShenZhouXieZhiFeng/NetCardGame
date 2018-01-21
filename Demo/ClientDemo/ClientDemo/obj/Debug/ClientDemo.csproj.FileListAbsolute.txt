@@ -1,0 +1,6 @@
+G:\Work\Project\Github\NetCardGame\Demo\ClientDemo\ClientDemo\ClientDemo\bin\Debug\ClientDemo.exe.config
+G:\Work\Project\Github\NetCardGame\Demo\ClientDemo\ClientDemo\bin\Debug\ClientDemo.exe.config
+G:\Work\Project\Github\NetCardGame\Demo\ClientDemo\ClientDemo\bin\Debug\ClientDemo.exe
+G:\Work\Project\Github\NetCardGame\Demo\ClientDemo\ClientDemo\bin\Debug\ClientDemo.pdb
+G:\Work\Project\Github\NetCardGame\Demo\ClientDemo\ClientDemo\obj\Debug\ClientDemo.exe
+G:\Work\Project\Github\NetCardGame\Demo\ClientDemo\ClientDemo\obj\Debug\ClientDemo.pdb
