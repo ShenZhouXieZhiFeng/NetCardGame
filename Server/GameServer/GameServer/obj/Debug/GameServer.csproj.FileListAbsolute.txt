@@ -1,1 +1,8 @@
 G:\Work\Project\Github\NetCardGame\Server\GameServer\GameServer\bin\Debug\GameServer.exe.config
+G:\Work\Project\Github\NetCardGame\Server\GameServer\GameServer\bin\Debug\GameServer.exe
+G:\Work\Project\Github\NetCardGame\Server\GameServer\GameServer\bin\Debug\GameServer.pdb
+G:\Work\Project\Github\NetCardGame\Server\GameServer\GameServer\bin\Debug\AhpilyServer.dll
+G:\Work\Project\Github\NetCardGame\Server\GameServer\GameServer\bin\Debug\AhpilyServer.pdb
+G:\Work\Project\Github\NetCardGame\Server\GameServer\GameServer\obj\Debug\GameServer.csprojResolveAssemblyReference.cache
+G:\Work\Project\Github\NetCardGame\Server\GameServer\GameServer\obj\Debug\GameServer.exe
+G:\Work\Project\Github\NetCardGame\Server\GameServer\GameServer\obj\Debug\GameServer.pdb

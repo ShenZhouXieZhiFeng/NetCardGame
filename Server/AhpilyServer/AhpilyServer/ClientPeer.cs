@@ -179,7 +179,7 @@ namespace AhpilyServer
         {
             dataCache.Clear();
             IsReceiveProcess = false;
-            //TODO 清空发送消息
+            sendQueue.Clear();
 
             ClientSocket.Shutdown(SocketShutdown.Both);
             ClientSocket.Close();

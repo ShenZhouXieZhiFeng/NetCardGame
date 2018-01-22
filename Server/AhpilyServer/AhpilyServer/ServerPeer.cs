@@ -15,6 +15,17 @@ namespace AhpilyServer
         private Semaphore acceptSemaphore;
         //客户端连接池
         private ClientPeerPool clientPeerPool;
+        //应用层
+        private IApplicationBase application;
+
+        /// <summary>
+        /// 设置应用层
+        /// </summary>
+        /// <param name="app"></param>
+        public void SetApplication(IApplicationBase app)
+        {
+            application = app;
+        }
 
         /// <summary>
         /// 开启服务
@@ -86,8 +97,9 @@ namespace AhpilyServer
             ClientPeer client = clientPeerPool.Dequeue();
             client.ClientSocket = clientSocket; //指定客户端socket
             client.ReceiveArgs.Completed += receive_completed;//指定一次接收时完成的操作
-            client.OnReceiveCompleted += receiveCompleted;//指定消息解析完毕的回调
+            client.OnReceiveCompleted = receiveCompleted;//指定消息解析完毕的回调
             client.OnSendClientDisconnect = Disconnect;//指定消息发送失败的回调
+
             startReceive(client);
             //尾递归
             e.AcceptSocket = null;
@@ -171,8 +183,7 @@ namespace AhpilyServer
         /// <param name="data">消息对象</param>
         private void receiveCompleted(ClientPeer client,SocketMsg data)
         {
-            //TODO 服务端应用层使用
-
+            application.OnReceive(client, data);
         }
 
         #endregion
@@ -190,7 +201,7 @@ namespace AhpilyServer
             {
                 if (client == null)
                     throw new Exception("客户端对象为空，无法断开连接!");
-                //TODO 通知应用层客户端断开连接了
+                application.OnDisconnect(client);
                 client.Disconnect();
                 clientPeerPool.Enqueue(client);
                 acceptSemaphore.Release();
