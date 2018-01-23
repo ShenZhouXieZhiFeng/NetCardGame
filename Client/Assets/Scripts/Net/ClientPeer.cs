@@ -1,0 +1,108 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Net.Sockets;
+using UnityEngine;
+
+/// <summary>
+/// 客户端Socket的封装
+/// </summary>
+public class ClientPeer{
+
+    Socket socket;
+
+    public ClientPeer(string ip,int port)
+    {
+        try
+        {
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket.Connect(ip, port);
+            Debug.Log("连接服务器！");
+            //开始异步接收数据
+            startReceive();
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+        }
+    }
+
+    #region 接收数据
+    private bool isReceiveProcess = false;
+    private byte[] receiveBuffer = new byte[1024];
+    private List<byte> dataCache = new List<byte>();
+    public Queue<SocketMsg> socketMsgQueue = new Queue<SocketMsg>();
+
+    void startReceive()
+    {
+        if (socket == null || !socket.Connected)
+        {
+            Debug.LogError("连接失败");
+            return;
+        }
+        Debug.LogError("连接成功！");
+
+        socket.BeginReceive(receiveBuffer, 0, 1024, SocketFlags.None, receiveCallBack, socket);
+    }
+
+    /// <summary>
+    /// 收到消息的回调
+    /// </summary>
+    /// <param name="ar"></param>
+    void receiveCallBack(IAsyncResult ar)
+    {
+        try
+        {
+            int length = socket.EndReceive(ar);
+            byte[] tmpByteArray = new byte[length];
+            Buffer.BlockCopy(receiveBuffer, 0, tmpByteArray, 0, length);
+            //处理收到的消息
+            if (isReceiveProcess == false)
+                dataCache.AddRange(tmpByteArray);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+        }
+    }
+
+    void processReceive()
+    {
+        isReceiveProcess = true;
+
+        byte[] data = EncodingTool.DecodePacket(ref dataCache);
+        if (data == null)
+        {
+            isReceiveProcess = false;
+            return;
+        }
+        SocketMsg msg = EncodingTool.DecodeMsg(data);
+        //存储数据，等待处理
+        socketMsgQueue.Enqueue(msg);
+
+        //尾递归
+        processReceive();
+    }
+    #endregion
+
+    #region 发送数据
+
+    public void Send(int opCode,int subCode,object value)
+    {
+        SocketMsg msg = new SocketMsg(opCode, subCode, value);
+
+        byte[] data = EncodingTool.EncodeMsg(msg);
+        byte[] packet = EncodingTool.EncodePacket(data);
+
+        try
+        {
+            socket.Send(packet);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+        }
+    }
+
+    #endregion
+}

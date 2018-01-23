@@ -12,6 +12,8 @@ namespace GameServer
         static void Main(string[] args)
         {
             ServerPeer server = new ServerPeer();
+            //指定关联应用
+            server.SetApplication(new NetMsgCenter());
             server.Start(6666, 10);
 
             Console.ReadLine();

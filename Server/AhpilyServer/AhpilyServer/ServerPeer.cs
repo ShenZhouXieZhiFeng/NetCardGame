@@ -51,6 +51,7 @@ namespace AhpilyServer
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                throw;
             }
         }
 
@@ -100,6 +101,8 @@ namespace AhpilyServer
             client.OnReceiveCompleted = receiveCompleted;//指定消息解析完毕的回调
             client.OnSendClientDisconnect = Disconnect;//指定消息发送失败的回调
 
+            Console.WriteLine("客户端连接成功：" + client.ClientSocket.RemoteEndPoint.ToString());
+
             startReceive(client);
             //尾递归
             e.AcceptSocket = null;
@@ -128,6 +131,7 @@ namespace AhpilyServer
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                throw;
             }
         }
 
@@ -201,6 +205,7 @@ namespace AhpilyServer
             {
                 if (client == null)
                     throw new Exception("客户端对象为空，无法断开连接!");
+                Console.WriteLine("客户端断开连接：" + client.ClientSocket.RemoteEndPoint.ToString());
                 application.OnDisconnect(client);
                 client.Disconnect();
                 clientPeerPool.Enqueue(client);
@@ -208,7 +213,8 @@ namespace AhpilyServer
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
+                throw;
             }
         }
 

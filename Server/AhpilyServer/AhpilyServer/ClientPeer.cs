@@ -18,6 +18,7 @@ namespace AhpilyServer
         public ClientPeer()
         {
             ReceiveArgs = new SocketAsyncEventArgs();
+            ReceiveArgs.SetBuffer(new byte[1024], 0, 1024);
             sendArgs = new SocketAsyncEventArgs();
             ReceiveArgs.UserToken = this;//设定userToken
             sendArgs.Completed += send_completed;
