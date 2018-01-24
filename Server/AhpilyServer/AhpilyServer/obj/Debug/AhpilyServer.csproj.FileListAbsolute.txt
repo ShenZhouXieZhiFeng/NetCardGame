@@ -3,3 +3,5 @@ G:\Work\Project\Github\NetCardGame\Server\AhpilyServer\AhpilyServer\bin\Debug\Ah
 G:\Work\Project\Github\NetCardGame\Server\AhpilyServer\AhpilyServer\obj\Debug\AhpilyServer.csprojResolveAssemblyReference.cache
 G:\Work\Project\Github\NetCardGame\Server\AhpilyServer\AhpilyServer\obj\Debug\AhpilyServer.dll
 G:\Work\Project\Github\NetCardGame\Server\AhpilyServer\AhpilyServer\obj\Debug\AhpilyServer.pdb
+G:\Work\Project\Github\NetCardGame\Server\AhpilyServer\AhpilyServer\bin\Debug\Protocol.dll
+G:\Work\Project\Github\NetCardGame\Server\AhpilyServer\AhpilyServer\bin\Debug\Protocol.pdb

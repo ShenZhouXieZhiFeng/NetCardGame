@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using Protocol;
+using Protocol.Code;
+using Protocol.Dto;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,12 +11,9 @@ public class RegistPanel : UIBase {
     private Button btnRegist,btnClose;
     private InputField inputAccount, inputPassword, inputRepeat;
 
-    private void Awake()
-    {
-        Bind(UIEvent.REGIST_PANEL_ACTIVE);
-    }
-
     void Start () {
+        Bind(UIEvent.REGIST_PANEL_ACTIVE);
+
         btnRegist = transform.Find("btnRegist").GetComponent<Button>();
         btnClose = transform.Find("btnClose").GetComponent<Button>();
         inputAccount = transform.Find("inputAccount").GetComponent<InputField>();
@@ -51,8 +51,10 @@ public class RegistPanel : UIBase {
             || string.IsNullOrEmpty(inputPassword.text) 
             || string.IsNullOrEmpty(inputRepeat.text))
             return;
-        //TODO
-
+        //组织消息并发送
+        AccountDto dto = new AccountDto(inputAccount.text, inputPassword.text);
+        SocketMsg msg = new SocketMsg(OpCode.ACCOUNT, AccountCode.REGIST_CREQ, dto);
+        Dispatch(AreaCode.NET, 0, msg);
     }
 
     void onCloseClick()

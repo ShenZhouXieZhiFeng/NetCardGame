@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Protocol;
+using Protocol.Code;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,13 +11,29 @@ public class NetManager : ManagerBase {
     private void Awake()
     {
         Instance = this;
+        Add(OpCode.ACCOUNT, this);
     }
 
-    private ClientPeer client;
+    public override void Execute(int eventCode, object message)
+    {
+        //接收事件并处理
+        switch (eventCode)
+        {
+            case OpCode.ACCOUNT:
+                client.Send(message as SocketMsg);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private ClientPeer client = null;
 
     public void Connetced(string ip,int port)
     {
-        client = new ClientPeer(ip, port);
+        if(client == null)
+            client = new ClientPeer(ip, port);
+        client.Connect();
     }
 
     private void Update()
@@ -27,6 +45,7 @@ public class NetManager : ManagerBase {
         {
             SocketMsg msg = client.socketMsgQueue.Dequeue();
             //TODO 根据msg做处理
+            Debug.Log(msg.Value.ToString());
         }
     }
 

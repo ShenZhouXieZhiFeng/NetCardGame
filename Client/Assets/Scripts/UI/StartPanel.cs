@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using Protocol.Code;
+using Protocol;
+using Protocol.Dto;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,13 +13,10 @@ public class StartPanel : UIBase {
     private InputField inputAccount;
     private InputField inputPassword;
 
-    private void Awake()
-    {
-        Bind(UIEvent.START_PANEL_ACTIVE);
-    }
-
     // Use this for initialization
     void Start () {
+        Bind(UIEvent.START_PANEL_ACTIVE);
+
         btnLogin = transform.Find("btnLogin").GetComponent<Button>();
         btnClose = transform.Find("btnClose").GetComponent<Button>();
         inputAccount = transform.Find("inputAccount").GetComponent<InputField>();
@@ -52,7 +52,10 @@ public class StartPanel : UIBase {
     {
         if (string.IsNullOrEmpty(inputAccount.text) || string.IsNullOrEmpty(inputPassword.text))
             return;
-        //TODO
+        //组织消息并发送
+        AccountDto dto = new AccountDto(inputAccount.text, inputPassword.text);
+        SocketMsg msg = new SocketMsg(OpCode.ACCOUNT, AccountCode.LOGIN_CREQ, dto);
+        Dispatch(AreaCode.NET, 0, msg);
     }
 
     void onCloseClick()

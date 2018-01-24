@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AhpilyServer
+
+namespace Protocol
 {
     /// <summary>
     /// 网络消息
     /// </summary>
+    [Serializable]
     public class SocketMsg
     {
         /// <summary>

@@ -3,3 +3,5 @@ G:\Work\Project\Github\NetCardGame\Protocol\Protocol\bin\Debug\Protocol.pdb
 G:\Work\Project\Github\NetCardGame\Protocol\Protocol\obj\Debug\Protocol.csprojResolveAssemblyReference.cache
 G:\Work\Project\Github\NetCardGame\Protocol\Protocol\obj\Debug\Protocol.dll
 G:\Work\Project\Github\NetCardGame\Protocol\Protocol\obj\Debug\Protocol.pdb
+G:\Work\Project\Github\NetCardGame\Client\Assets\Plugins\Protocol.dll
+G:\Work\Project\Github\NetCardGame\Client\Assets\Plugins\Protocol.pdb

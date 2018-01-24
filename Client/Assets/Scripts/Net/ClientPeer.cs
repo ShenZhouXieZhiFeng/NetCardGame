@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Protocol;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -10,12 +11,27 @@ using UnityEngine;
 public class ClientPeer{
 
     Socket socket;
+    string ip;
+    int port;
 
     public ClientPeer(string ip,int port)
     {
         try
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            this.ip = ip;
+            this.port = port;
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+        }
+    }
+
+    public void Connect()
+    {
+        try
+        {
             socket.Connect(ip, port);
             Debug.Log("连接服务器！");
             //开始异步接收数据
@@ -23,7 +39,8 @@ public class ClientPeer{
         }
         catch (Exception e)
         {
-            Debug.Log(e.Message);
+            Debug.LogError(e.Message);
+            throw;
         }
     }
 
@@ -37,10 +54,9 @@ public class ClientPeer{
     {
         if (socket == null || !socket.Connected)
         {
-            Debug.LogError("连接失败");
+            Debug.LogError("无连接");
             return;
         }
-        Debug.LogError("连接成功！");
 
         socket.BeginReceive(receiveBuffer, 0, 1024, SocketFlags.None, receiveCallBack, socket);
     }
@@ -53,12 +69,17 @@ public class ClientPeer{
     {
         try
         {
+            Debug.Log("收到消息");
             int length = socket.EndReceive(ar);
             byte[] tmpByteArray = new byte[length];
             Buffer.BlockCopy(receiveBuffer, 0, tmpByteArray, 0, length);
+            dataCache.AddRange(tmpByteArray);
             //处理收到的消息
             if (isReceiveProcess == false)
-                dataCache.AddRange(tmpByteArray);
+            {
+                processReceive();
+            }
+            startReceive();
         }
         catch (Exception e)
         {
@@ -90,7 +111,11 @@ public class ClientPeer{
     public void Send(int opCode,int subCode,object value)
     {
         SocketMsg msg = new SocketMsg(opCode, subCode, value);
+        Send(msg);
+    }
 
+    public void Send(SocketMsg msg)
+    {
         byte[] data = EncodingTool.EncodeMsg(msg);
         byte[] packet = EncodingTool.EncodePacket(data);
 

@@ -18,12 +18,27 @@ namespace AhpilyServer
     public class SingleExecute
     {
 
+        private static SingleExecute instance = null;
+        public static SingleExecute Instance
+        {
+            get
+            {
+                lock (instance)
+                {
+                    if (instance == null)
+                        instance = new SingleExecute();
+                    return instance;
+                }
+                   
+            }
+        }
+
         /// <summary>
         /// 互斥锁
         /// </summary>
-        public Mutex mutex;
+        private Mutex mutex;
 
-        public SingleExecute()
+        private SingleExecute()
         {
             mutex = new Mutex();
         }

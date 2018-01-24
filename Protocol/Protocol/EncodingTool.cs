@@ -4,9 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace AhpilyServer
+namespace Protocol
 {
     /// <summary>
     /// 编码工具类
@@ -104,7 +103,7 @@ namespace AhpilyServer
         /// <returns></returns>
         public static SocketMsg DecodeMsg(byte[] data)
         {
-            using (MemoryStream ms = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream(data))
             {
                 using (BinaryReader br = new BinaryReader(ms))
                 {

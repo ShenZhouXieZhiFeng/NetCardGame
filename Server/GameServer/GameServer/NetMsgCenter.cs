@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AhpilyServer;
 using GameServer.Logic;
 using Protocol.Code;
+using Protocol;
 
 namespace GameServer
 {
