@@ -13,6 +13,8 @@ public class StartPanel : UIBase {
     private InputField inputAccount;
     private InputField inputPassword;
 
+    private PromptMsg promptMsg;
+
     // Use this for initialization
     void Start () {
         Bind(UIEvent.START_PANEL_ACTIVE);
@@ -25,6 +27,7 @@ public class StartPanel : UIBase {
         btnLogin.onClick.AddListener(onLoginClick);
         btnClose.onClick.AddListener(onCloseClick);
 
+        promptMsg = new PromptMsg();
         setGameObjectActive(false);
     }
 
@@ -51,7 +54,11 @@ public class StartPanel : UIBase {
     void onLoginClick()
     {
         if (string.IsNullOrEmpty(inputAccount.text) || string.IsNullOrEmpty(inputPassword.text))
+        {
+            promptMsg.Change("帐号或密码不能为空", Color.red);
+            Dispatch(AreaCode.UI, UIEvent.PROMPT_MSG, promptMsg);
             return;
+        }
         //组织消息并发送
         AccountDto dto = new AccountDto(inputAccount.text, inputPassword.text);
         SocketMsg msg = new SocketMsg(OpCode.ACCOUNT, AccountCode.LOGIN_CREQ, dto);

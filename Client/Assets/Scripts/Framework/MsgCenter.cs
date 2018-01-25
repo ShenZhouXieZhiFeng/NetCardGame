@@ -14,6 +14,9 @@ public class MsgCenter : MonoBehaviour
     private CharacterManager mCharacterManager;
     private NetManager mNetManager;
 
+    [SerializeField]
+    private bool connectServer = false;
+
     void Awake()
     {
         Instance = this;
@@ -22,7 +25,8 @@ public class MsgCenter : MonoBehaviour
 
         addComponent();
 
-        initGame();
+        if(connectServer)
+            initGame();
     }
 
     /// <summary>

@@ -11,6 +11,8 @@ public class RegistPanel : UIBase {
     private Button btnRegist,btnClose;
     private InputField inputAccount, inputPassword, inputRepeat;
 
+    private PromptMsg promptMsg;
+
     void Start () {
         Bind(UIEvent.REGIST_PANEL_ACTIVE);
 
@@ -23,6 +25,7 @@ public class RegistPanel : UIBase {
         btnRegist.onClick.AddListener(onRegistClick);
         btnClose.onClick.AddListener(onCloseClick);
 
+        promptMsg = new PromptMsg();
         setGameObjectActive(false);
     }
 
@@ -47,10 +50,20 @@ public class RegistPanel : UIBase {
 
     void onRegistClick()
     {
-        if (string.IsNullOrEmpty(inputAccount.text) 
-            || string.IsNullOrEmpty(inputPassword.text) 
+        if (string.IsNullOrEmpty(inputAccount.text)
+            || string.IsNullOrEmpty(inputPassword.text)
             || string.IsNullOrEmpty(inputRepeat.text))
+        {
+            promptMsg.Change("输入不能为空", Color.red);
+            Dispatch(AreaCode.UI, UIEvent.PROMPT_MSG, promptMsg);
             return;
+        }
+        if (!inputPassword.text.Equals(inputRepeat.text))
+        {
+            promptMsg.Change("两次密码不同", Color.red);
+            Dispatch(AreaCode.UI, UIEvent.PROMPT_MSG, promptMsg);
+            return;
+        }
         //组织消息并发送
         AccountDto dto = new AccountDto(inputAccount.text, inputPassword.text);
         SocketMsg msg = new SocketMsg(OpCode.ACCOUNT, AccountCode.REGIST_CREQ, dto);

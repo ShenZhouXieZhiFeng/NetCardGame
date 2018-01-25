@@ -9,4 +9,6 @@ public class UIEvent{
 
     public const int START_PANEL_ACTIVE = 0;
     public const int REGIST_PANEL_ACTIVE = 1;
+
+    public const int PROMPT_MSG = int.MaxValue;
 }
